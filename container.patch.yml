@@ -1,0 +1,7 @@
+# dsh 容器化覆盖层（CloudRun 用）— 通过 --patch container.patch.yml 叠加
+# 覆盖 web profile 的 webserver 行：监听 0.0.0.0 + 平台注入的 PORT。
+# 不修改 dsh 源码；信任栅栏在 0.0.0.0 下自动纳入容器内网地址。
+- id: webserver
+  config:
+    host: 0.0.0.0
+    port: !!js Number(process.env.PORT ?? 3080)
